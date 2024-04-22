@@ -1,9 +1,15 @@
+
+Q1-Q4 - Fix or improve the implementation of the below methods.
+
+Q1 - Fix or improve the implementation of the below methods
+
 local function releaseStorage(player)
 player:setStorageValue(1000, -1)
 end
 
 function onLogout(player)
-if !player then
+
+if !player then 
 return false
 end
 
@@ -16,21 +22,21 @@ end
 
 Q2 - Fix or improve the implementation of the below method
 
-// reference  - https://otland.net/threads/sql-lua-return-storequery.272689/
-
+// reference - https://otland.net/threads/sql-lua-return-storequery.272689/
 function printSmallGuildNames(memberCount)
 -- this method is supposed to print names of all guilds that have less than memberCount max members
 local selectGuildQuery = "SELECT name FROM guilds WHERE max_members < %d;"
 local resultId = db.storeQuery(string.format(selectGuildQuery, memberCount))
+
 if resultId == false then
-    return false
+return false 
 end
 
 local guildName = result.getString("name")
 result.free(resultId) // releasing the storeQuery global variable
+
 print(guildName)
 end
-
 
 Q3 - Fix or improve the name and the implementation of the below method
 
@@ -53,8 +59,8 @@ Player* player = g_game.getPlayerByName(recipient);
 if (!player) {
 player = new Player(nullptr);
 if (!IOLoginData::loadPlayerByName(player, recipient)) {
-delete player; 
-return; //returning here without deleting that player reference beforehand will cause a memory leak
+delete player; //newly created object needs to be deallocated before exiting - otherwise this will be the source of a memory leak
+return;
 }
 }
 
